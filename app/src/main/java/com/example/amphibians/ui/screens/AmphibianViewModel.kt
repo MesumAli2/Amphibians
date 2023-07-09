@@ -16,17 +16,15 @@ import retrofit2.HttpException
 import java.io.IOException
 
 
-sealed interface AmphibiansUIState  {
-    data class Success(val amphibians : List<Amphibian>) : AmphibiansUIState
-
-    object Error : AmphibiansUIState
-
-    object Loading : AmphibiansUIState
+sealed interface AmphibiansUiState {
+    data class Success(val amphibians: List<Amphibian>) : AmphibiansUiState
+    object Error : AmphibiansUiState
+    object Loading : AmphibiansUiState
 }
 
 class AmphibianViewModel(private val amphibiansRepository: AmphibiansRepository) : ViewModel()
 {
-    var amphibiansUIState : AmphibiansUIState by mutableStateOf(AmphibiansUIState.Loading)
+    var amphibiansUIState : AmphibiansUiState by mutableStateOf(AmphibiansUiState.Loading)
         private set
 
     init {
@@ -36,13 +34,13 @@ class AmphibianViewModel(private val amphibiansRepository: AmphibiansRepository)
 
      fun getAmphibians() {
         viewModelScope.launch {
-            amphibiansUIState = AmphibiansUIState.Loading
+            amphibiansUIState = AmphibiansUiState.Loading
             amphibiansUIState = try {
-                AmphibiansUIState.Success(amphibiansRepository.getAmphibians())
+                AmphibiansUiState.Success(amphibiansRepository.getAmphibians())
             }catch ( e : IOException){
-                AmphibiansUIState.Error
+                AmphibiansUiState.Error
             }catch (e : HttpException){
-                AmphibiansUIState.Error
+                AmphibiansUiState.Error
             }
         }
     }

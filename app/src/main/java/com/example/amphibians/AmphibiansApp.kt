@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.amphibians.ui.screens.AmphibianViewModel
-import com.example.amphibians.ui.screens.AmphibiansUIState
+import com.example.amphibians.ui.screens.HomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +37,7 @@ fun AmphibianApp(){
             val amphibiansViewModel: AmphibianViewModel =
                 viewModel(factory = AmphibianViewModel.factory)
             HomeScreen(
-                amphiansUiState = amphibiansViewModel.amphibiansUIState,
+                amphibiansUiState = amphibiansViewModel.amphibiansUIState,
                 retryAction = amphibiansViewModel::getAmphibians
             )
         }
