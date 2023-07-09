@@ -1,6 +1,7 @@
 package com.example.amphibians.ui.screens
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -38,12 +40,35 @@ fun HomeScreen(amphibiansUiState: AmphibiansUiState,
 
     when (amphibiansUiState){
         is AmphibiansUiState.Success ->{
-
-
-            AmphibiansListScreen(amphibiansUiState.amphibians, modifier.fillMaxSize())}
-
-        else -> {}
+            AmphibiansListScreen(amphibiansUiState.amphibians, modifier.fillMaxSize())
+        }
+        is AmphibiansUiState.Loading ->{
+            LoadingScreen(modifier = modifier.fillMaxSize())
+        }
+        is AmphibiansUiState.Error ->{
+            ErrorScreen(retryAction = retryAction, modifier = modifier.fillMaxSize())
+        }
     }
+}
+
+@Composable
+fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        Image(painter = painterResource(id = R.drawable.ic_connection_error), contentDescription ="" )
+        Text(text = stringResource(id = R.string.loading_failed), modifier= Modifier.padding(16.dp))
+        Button(onClick = retryAction) {
+            Text(text = stringResource(id = R.string.retry))
+            
+        }
+    }
+
+}
+
+@Composable
+fun LoadingScreen(modifier: Modifier) {
+    Image(modifier = modifier,painter = painterResource(id = R.drawable.loading_img), contentDescription = stringResource(
+        id = R.string.loading
+    ))
 }
 
 @Composable
