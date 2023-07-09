@@ -1,5 +1,6 @@
 package com.example.amphibians.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -36,8 +37,10 @@ fun HomeScreen(amphibiansUiState: AmphibiansUiState,
 ) {
 
     when (amphibiansUiState){
-        is AmphibiansUiState.Success ->
-        AmphibiansListScreen(amphibiansUiState.amphibians, modifier.fillMaxSize())
+        is AmphibiansUiState.Success ->{
+
+
+            AmphibiansListScreen(amphibiansUiState.amphibians, modifier.fillMaxSize())}
 
         else -> {}
     }
@@ -57,7 +60,8 @@ fun AmphibiansListScreen(amphibians: List<Amphibian>, modifier: Modifier) {
                 amphibian.name
             }
         ){
-            AmphibianCard(amphibians = it, modifier = modifier.fillMaxSize())
+            amphibians ->
+            AmphibianCard(amphibians = amphibians, modifier = modifier.fillMaxSize())
         }
     }
 }
@@ -80,7 +84,7 @@ fun AmphibianCard(amphibians: Amphibian, modifier: Modifier) {
 
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(amphibians.imgSrc)
+                    .data(amphibians.img_src)
                     .crossfade(true)
                     .build(),
                 contentDescription = null,

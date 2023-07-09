@@ -1,5 +1,6 @@
 package com.example.amphibians
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +37,7 @@ fun AmphibianApp(){
             .padding(it)) {
             val amphibiansViewModel: AmphibianViewModel =
                 viewModel(factory = AmphibianViewModel.factory)
+
             HomeScreen(
                 amphibiansUiState = amphibiansViewModel.amphibiansUIState,
                 retryAction = amphibiansViewModel::getAmphibians
